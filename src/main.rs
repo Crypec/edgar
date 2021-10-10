@@ -59,7 +59,7 @@ pub fn tokenize_str<S: Into<String>>(input: S) -> Vec<Token> {
     tokens
 }
 
-pub fn parse_shunting_yard(tokens: Vec<Token>) -> Vec<Token> {
+pub fn parse_shunting_yard(tokens: Vec<Token>) -> RPNStack {
     let mut output = vec![];
     let mut ops = vec![];
     for t in tokens {
@@ -89,7 +89,9 @@ pub fn parse_shunting_yard(tokens: Vec<Token>) -> Vec<Token> {
     output
 }
 
-pub fn evaluate_shunting_yard(rpn: Vec<Token>) -> isize {
+pub type RPNStack = Vec<Token>;
+
+pub fn evaluate_shunting_yard(rpn: RPNStack) -> isize {
     let mut stack = vec![];
     for t in rpn {
         match t {
